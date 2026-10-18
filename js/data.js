@@ -457,3 +457,82 @@ const BATCHES = [
 ]}
 
 ];
+
+/* Priority tab data — exam-day triage. */
+const PRIORITY = {
+ deck:[
+  {t:'Weakening or strengthening a claim',w:['undermine','bolster','substantiate','corroborate','refute','negate','vitiate','attest','impugn']},
+  {t:'How certain is it',w:['tentative','provisional','ambiguous','equivocal','unequivocal','conjecture','ostensible','dubious','notional','prospect']},
+  {t:'More or less of something',w:['abate','mitigate','alleviate','curtail','wane','exacerbate','augment','proliferate','accentuate','attenuate']},
+  {t:'Approval and disapproval',w:['laud','commend','venerate','censure','denounce','disparage','deride','reproach']},
+  {t:'Everywhere or scarce',w:['ubiquitous','pervasive','prevalent','sporadic','dearth','copious','superfluous']},
+  {t:'Clear or hard to follow',w:['lucid','elucidate','cogent','convoluted','abstruse','esoteric','nebulous','oblique','indecipherable']},
+  {t:'Careful or careless work',w:['meticulous','scrupulous','exhaustive','nuanced','perfunctory','superficial','facile','offhand']},
+  {t:'Standing firm or giving in',w:['obstinate','intransigent','tenacious','acquiesce','concede','capitulate','relent']},
+  {t:'Central or off to the side',w:['intrinsic','overarching','profound','tangential','peripheral']},
+  {t:'Before, after, unchanging',w:['precursor','antecedent','prefigure','seminal','unprecedented','entrenched','invariably','inexorable']},
+  {t:'Difference and sameness',w:['disparate','juxtapose','conflate','homogenous','dissonance','counterintuitive','tantamount']},
+  {t:'Tone words',w:['candid','sardonic','vitriolic','astringent','mawkish','didactic','pedantic','polemical','haughty']}
+ ],
+ transitions:[
+  {t:'Contrast',note:'The second sentence pushes against the first. Most tested category.',w:['however','nevertheless','nonetheless','conversely','in contrast','on the other hand','still','whereas','yet']},
+  {t:'Cause and effect',note:'The second sentence is the result of the first.',w:['therefore','thus','consequently','hence','as a result','accordingly']},
+  {t:'Addition',note:'The second sentence adds a similar point, same direction.',w:['moreover','furthermore','additionally','likewise','similarly','in addition']},
+  {t:'Example',note:'The second sentence is a specific case of the first.',w:['for instance','for example','specifically','namely','in particular']},
+  {t:'Concession',note:'Admits a point, usually to set up a "but" right after.',w:['granted','admittedly','to be sure','of course','certainly']},
+  {t:'Sequence and closing',note:'Orders events in time, or lands the final point.',w:['subsequently','meanwhile','previously','ultimately','finally']},
+  {t:'Emphasis or restatement',note:'Says the same thing again, harder or plainer.',w:['indeed','in fact','that is','in other words']}
+ ],
+ functions:[
+  {w:'illustrate',d:'gives a concrete example of an idea just stated'},
+  {w:'exemplify',d:'serves as a typical case of something'},
+  {w:'emphasize',d:'stresses the importance of a point'},
+  {w:'underscore',d:'reinforces a point already made'},
+  {w:'qualify',d:'limits or softens a claim without rejecting it'},
+  {w:'concede',d:'admits a point that works against the author'},
+  {w:'acknowledge',d:'recognizes a fact or an opposing view'},
+  {w:'assert',d:'states a claim firmly, without proof attached'},
+  {w:'contend',d:'argues for a position against alternatives'},
+  {w:'imply',d:'suggests something without saying it outright'},
+  {w:'infer',d:'draws a conclusion from evidence given'},
+  {w:'attribute',d:'assigns a cause or a source to something'},
+  {w:'account for',d:'explains why something is the case'},
+  {w:'anticipate an objection',d:'raises a counterargument in order to answer it'},
+  {w:'elaborate',d:'adds detail to something already introduced'},
+  {w:'summarize',d:'condenses what came before'},
+  {w:'critique',d:'evaluates something, pointing out weaknesses'},
+  {w:'advocate',d:'argues in favor of a course of action'},
+  {w:'downplay',d:'makes something seem less significant'},
+  {w:'dismiss',d:'rejects something as not worth considering'}
+ ],
+ extra:[
+  {w:'plausible',d:'believable on its face, though not proven'},
+  {w:'credible',d:'able to be believed; trustworthy'},
+  {w:'feasible',d:'able to be done; practical'},
+  {w:'viable',d:'capable of working successfully'},
+  {w:'arbitrary',d:'based on whim rather than reason or rule'},
+  {w:'skeptical',d:'inclined to doubt; not easily convinced'},
+  {w:'scrutinize',d:'examine closely and critically'},
+  {w:'inherent',d:'existing as a natural, permanent part of something'},
+  {w:'compelling',d:'powerfully convincing'},
+  {w:'impartial',d:'not favoring either side; unbiased'},
+  {w:'unwarranted',d:'not justified by the circumstances'},
+  {w:'tangible',d:'real and concrete; able to be touched or measured'},
+  {w:'salient',d:'the most noticeable or important point'},
+  {w:'deleterious',d:'causing harm or damage'},
+  {w:'stark',d:'severe and plain; or a harsh, obvious contrast'},
+  {w:'derivative',d:'copied from something else; unoriginal'},
+  {w:'gratuitous',d:'uncalled for; more than the situation warrants'},
+  {w:'rigorous',d:'extremely thorough and demanding'},
+  {w:'robust',d:'strong and able to withstand strain'},
+  {w:'belie',d:'to contradict or give a false impression of'},
+  {w:'assuage',d:'to ease or soothe a bad feeling'},
+  {w:'circuitous',d:'roundabout; not direct'},
+  {w:'paradoxical',d:'seemingly self-contradictory, yet possibly true'},
+  {w:'novel',d:'new and unlike anything before'},
+  {w:'comprehensive',d:'complete; covering everything'},
+  {w:'discern',d:'to make out or perceive something subtle'},
+  {w:'indifferent',d:'having no interest or concern either way'}
+ ]
+};
+
