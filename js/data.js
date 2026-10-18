@@ -536,3 +536,8 @@ const PRIORITY = {
  ]
 };
 
+/* Bluebook frequency data. Source: 3-4-5 Tutoring's analysis of Bluebook
+   Tests 4-10 plus Medium/Hard R&W Question Bank items. Third-party
+   compilation, not an official College Board list. Counts = times the word
+   appeared in that sample. */
+const BLUEBOOK=[['ephemeral',7],['exacerbate',5],['pragmatic',5],['ubiquitous',5],['diminish',4],['empirical',4],['prolific',4],['scrutinize',4],['substantiate',4],['tenuous',4],['ambiguous',3],['catalyst',3],['compelling',3],['deleterious',3],['elicit',3],['extrapolate',3],['fortuitous',3],['idiosyncratic',3],['intricate',3],['mitigate',3],['plausible',3],['propensity',3],['recalcitrant',3],['sagacious',3],['anecdotal',2],['attest',2],['augment',2],['capricious',2],['coalesce',2],['cogent',2],['conducive',2],['conjecture',2],['connotation',2],['controversial',2],['copious',2],['delineate',2],['discrepancy',2],['disseminate',2],['dormant',2],['efficacy',2],['enhance',2],['erratic',2],['exorbitant',2],['extensive',2],['homogenous',2],['inadvertent',2],['incongruous',2],['ineffable',2],['inherent',2],['intransigent',2],['juxtapose',2],['magnanimous',2],['meticulous',2],['nascent',2],['nebulous',2],['obfuscate',2],['ostensible',2],['paradigm',2],['precarious',2],['precipitous',2],['proliferate',2],['quintessential',2],['reinforce',2],['reiterate',2],['repudiate',2],['salient',2],['spurious',2],['synthesize',2],['taciturn',2],['tenacious',2],['unfounded',2],['universal',2],['unprecedented',2]];
