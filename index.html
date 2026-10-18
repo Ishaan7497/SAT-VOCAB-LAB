@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAT Vocab Lab</title>
+<meta name="description" content="An SAT vocabulary trainer built around opposites: 349 words in antonym-paired batches, with flashcards, SAT-style fill-in-the-blank, matching, and sentence feedback.">
+<meta name="theme-color" content="#e5e8de" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121a16" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SAT Vocab Lab">
+<meta property="og:description" content="349 SAT words in antonym-paired batches, with flashcards, SAT-style fill-in-the-blank and matching.">
+<!-- Link previews need an absolute URL: replace with https://YOUR-USERNAME.github.io/sat-vocab-lab/docs/screenshots/social.png -->
+<meta property="og:image" content="docs/screenshots/social.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/fraunces-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/karla-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>
+  // Apply a saved theme before first paint so there's no flash.
+  try { var t = localStorage.getItem('satvocab:theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<div class="wrap">
+  <header class="masthead">
+    <div>
+      <h1>SAT Vocab Lab</h1>
+      <div class="mono" id="sub"></div>
+    </div>
+    <div class="mast-right">
+      <button class="theme" id="theme" type="button">Auto</button>
+      <div class="count"><b id="wcount">0</b><span class="mono">words</span></div>
+    </div>
+  </header>
+
+  <nav role="tablist" aria-label="Study modes">
+    <button role="tab" data-mode="batches" aria-selected="true" aria-controls="view">Batches</button>
+    <button role="tab" data-mode="cards" aria-selected="false" aria-controls="view" tabindex="-1">Flashcards</button>
+    <button role="tab" data-mode="groups" aria-selected="false" aria-controls="view" tabindex="-1">Meaning groups</button>
+    <button role="tab" data-mode="quiz" aria-selected="false" aria-controls="view" tabindex="-1">Fill in the blank</button>
+    <button role="tab" data-mode="match" aria-selected="false" aria-controls="view" tabindex="-1">Match</button>
+    <button role="tab" data-mode="write" aria-selected="false" aria-controls="view" tabindex="-1">Write a sentence</button>
+    <button role="tab" data-mode="priority" aria-selected="false" aria-controls="view" tabindex="-1">Priority</button>
+    <button role="tab" data-mode="about" aria-selected="false" aria-controls="view" tabindex="-1">About</button>
+  </nav>
+  <div id="scopebar"></div>
+  <main id="view" role="tabpanel" tabindex="-1"></main>
+
+  <footer class="foot">
+    <span class="mono" id="byline"></span>
+    <span class="mono">Works offline · no account · no tracking</span>
+  </footer>
+</div>
+<script src="js/data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
