@@ -1,0 +1,14 @@
+{
+  "name": "sat-vocab-lab",
+  "version": "1.1.0",
+  "private": true,
+  "description": "An SAT vocabulary trainer built around opposites: antonym-paired batches, flashcards, SAT-style fill-in-the-blank and matching.",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "npx --yes serve .",
+    "test": "node --test test/core.test.mjs && node scripts/validate.mjs",
+    "validate": "node scripts/validate.mjs"
+  }
+}
