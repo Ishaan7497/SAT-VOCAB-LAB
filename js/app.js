@@ -11,7 +11,7 @@
    * Fill these in once the project is published; empty values are hidden. */
   const SITE = {
     author: 'Ishaan Gupta',
-    repoUrl: '',    // e.g. 'https://github.com/you/sat-vocab-lab'
+    repoUrl: 'https://github.com/Ishaan7497/sat-vocab-lab',
   };
 
   const core = window.VocabCore;

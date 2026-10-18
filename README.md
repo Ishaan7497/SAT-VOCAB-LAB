@@ -1,12 +1,12 @@
 # SAT Vocab Lab
 
-[![Tests and deploy](https://github.com/YOUR-USERNAME/sat-vocab-lab/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR-USERNAME/sat-vocab-lab/actions/workflows/deploy.yml)
+[![Tests and deploy](https://github.com/Ishaan7497/sat-vocab-lab/actions/workflows/deploy.yml/badge.svg)](https://github.com/Ishaan7497/sat-vocab-lab/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![No dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
 
 **An SAT vocabulary trainer built around opposites.** 349 words in 35 themed batches, each split into two opposing halves, because the digital SAT's Words in Context questions turn on which way a sentence leans, not on a definition alone.
 
-**[Try it live →](https://YOUR-USERNAME.github.io/sat-vocab-lab/)** · [Design notes](docs/DESIGN.md) · [Run it locally](#run-it-locally)
+**[Try it live →](https://Ishaan7497.github.io/sat-vocab-lab/)** · [Design notes](docs/DESIGN.md) · [Run it locally](#run-it-locally)
 
 ![Flashcard for "abate" with its definition, an example sentence, and linked synonyms and antonyms](docs/screenshots/flashcard.png)
 
@@ -113,7 +113,7 @@ Runs ten unit tests with Node's built-in test runner, then the deck validator. T
 ## Run it locally
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/sat-vocab-lab.git
+git clone https://github.com/Ishaan7497/sat-vocab-lab.git
 cd sat-vocab-lab
 npm start          # serves the site locally; or just open index.html
 npm test           # unit tests + deck validation (Node 18+)
