@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![No dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
 
-**An SAT vocabulary trainer built around opposites.** 349 words in 35 themed batches, each split into two opposing halves, because the digital SAT's Words in Context questions turn on which way a sentence leans, not on a definition alone.
+**A SAT vocabulary trainer built around opposites.** 349 words in 35 themed batches, each split into two opposing halves, because the digital SAT's Words in Context questions turn on which way a sentence leans, not on a definition alone.
 
 **[Try it live →](https://ishaan7497.github.io/SAT-VOCAB-LAB/)** · [Design notes](docs/DESIGN.md) · [Run it locally](#run-it-locally)
 
