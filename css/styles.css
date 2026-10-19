@@ -11,10 +11,10 @@
 
 :root{
   --ink:#14231d; --ink-2:#41564c; --paper:#e5e8de; --card:#f4f5ef; --line:#c6cdbd;
-  --teal:#2e6b5e; --teal-soft:#dbe7e1; --teal-ink:var(--teal-ink);
-  --ochre:#b8862a; --ochre-soft:#f0e6cd; --ochre-ink:var(--ochre-ink);
-  --berry:#8f2f46; --berry-soft:#f2dde1; --berry-ink:var(--berry-ink);
-  --on-accent:#fff; --hover-tint:var(--hover-tint); --shadow:var(--shadow);
+  --teal:#2e6b5e; --teal-soft:#dbe7e1; --teal-ink:#1f4b41;
+  --ochre:#b8862a; --ochre-soft:#f0e6cd; --ochre-ink:#6f4f12;
+  --berry:#8f2f46; --berry-soft:#f2dde1; --berry-ink:#6b2234;
+  --on-accent:#fff; --hover-tint:rgba(46,107,94,.06); --shadow:rgba(20,35,29,.45);
   --radius:2px;
   color-scheme:light;
 }
@@ -240,4 +240,29 @@ nav button{white-space:nowrap}
   .mast-right{gap:12px}
   .overview b{font-size:22px}
 }
-.qstem u{margin:0 3px}
+/* The blank wraps as one unit, so it never runs past the edge on narrow screens. */
+.qstem u{display:inline-block;min-width:4.5em;padding:0;margin:0 3px;vertical-align:baseline;height:1em}
+
+/* Interaction polish: soft transitions, and cards that lift slightly on hover. */
+.bcard,.opt,.tile,.hit,.gword,.chip,.pw,.bbw{transition:background-color .15s,border-color .15s,box-shadow .15s,transform .15s,color .15s}
+.bcard:hover,.opt:hover:not([disabled]),.tile:hover:not([disabled]):not(.done){box-shadow:0 8px 18px -14px var(--shadow)}
+.bcard:hover{transform:translateY(-1px)}
+.opt:hover:not([disabled]){background:var(--hover-tint)}
+.tile:hover:not([disabled]):not(.done):not(.sel){border-color:var(--ink-2)}
+.feedback{border-radius:0 var(--radius) var(--radius) 0}
+.btn{transition:background-color .15s,color .15s,border-color .15s}
+
+/* Centre the headword on the front of the flashcard instead of pinning it to the top. */
+.face.front{display:flex;flex-direction:column}
+.front .headword{margin-top:auto}
+.front .pos{margin-bottom:auto;padding-bottom:30px}
+
+@media (max-width:560px){
+  .overview .mono{letter-spacing:.08em}
+  .overview div{padding:10px 12px}
+  .qstem{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bcard,.opt,.tile,.hit,.gword,.chip,.pw,.bbw,.btn{transition:none}
+  .bcard:hover{transform:none}
+}
