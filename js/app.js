@@ -349,7 +349,9 @@
     const unmastered = inScope().filter((w) => state.mastery[w.w] !== 'known');
     const source = unmastered.length >= size ? unmastered : inScope();
     const picks = shuffle(source).slice(0, Math.min(size, source.length));
-    state.match = { left: shuffle(picks), right: shuffle(picks), sel: null, done: [], tries: 0, size: picks.length };
+    // `size` is how many pairs this round has (fewer than asked for in a small batch);
+    // `asked` is the button that started it, so "Play again" can repeat it.
+    state.match = { left: shuffle(picks), right: shuffle(picks), sel: null, done: [], tries: 0, size: picks.length, asked: size };
     renderMatch();
   }
 
@@ -374,7 +376,7 @@
       ${solved ? `<div class="plate" style="margin-top:14px"><span class="mono">Round complete</span>
         <h3>${m.size} pairs in ${m.tries} attempts</h3>
         <p class="gloss">${m.tries === m.size ? 'Perfect run.' : `A perfect run is ${m.size}.`}</p>
-        <button class="btn" data-act="match${m.size}">Play again</button></div>` : ''}`;
+        <button class="btn" data-act="match${m.asked}">Play again</button></div>` : ''}`;
   }
 
   function pickTile(side, word) {
@@ -673,6 +675,8 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
   document.addEventListener('keydown', (e) => {
     if (state.mode !== 'cards' || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
     if (e.target.closest && e.target.closest('nav')) return;
+    // Space and Enter on a focused button should press that button, not flip the card.
+    if ((e.key === ' ' || e.key === 'Enter') && e.target.tagName === 'BUTTON') return;
     if (e.key === ' ' || (e.key === 'Enter' && e.target.id === 'card')) { e.preventDefault(); flipCard(); }
     else if (e.key === 'ArrowRight') stepCard(1);
     else if (e.key === 'ArrowLeft') stepCard(-1);
