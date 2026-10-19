@@ -37,7 +37,7 @@ The cost is that the browser and the tests have to share code without a module s
 
 ## 4. Privacy
 
-Progress lives in the browser's `localStorage` and never leaves the device. The only network request is the optional sentence checker, which the user enables with their own Anthropic API key. Because a static site has no server to keep a key secret, the key is never in the code; each user supplies their own, stored only in their browser.
+Progress lives in the browser's `localStorage` and never leaves the device. The site makes no network requests of its own: no account, no analytics, and fonts are self-hosted.
 
 ## 5. Data integrity
 

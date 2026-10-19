@@ -21,7 +21,6 @@
 
   const STORAGE = {
     mastery: 'satvocab:mastery',
-    apiKey: 'satvocab:apikey',
     theme: 'satvocab:theme',
   };
 
@@ -34,8 +33,6 @@
     cards: { order: null, pos: 0, flipped: false, onlyLearning: false },
     quiz: null,
     match: null,
-    write: null,
-    writeScore: { right: 0, total: 0 },
   };
 
   /* ---------- helpers ---------- */
@@ -66,7 +63,7 @@
   function setScope(id) {
     state.scope = id;
     state.cards = { ...state.cards, order: null, pos: 0, flipped: false };
-    state.quiz = state.match = state.write = null;
+    state.quiz = state.match = null;
   }
 
   function meter(list) {
@@ -397,103 +394,6 @@
     }
   }
 
-  /* ---------- write a sentence ---------- */
-  const CHECKER_MODEL = 'claude-haiku-5-5';
-  const CHECKER_PROMPT = `You are a strict but encouraging SAT vocabulary tutor. The student gives you one target word and one sentence they wrote using it. Judge two things: (1) whether the sentence uses the word with its correct meaning and part of speech, and (2) whether the sentence is grammatical. Minor awkwardness is fine; a wrong meaning or wrong part of speech is not.
-Respond with ONLY a JSON object, no markdown fences, no other text:
-{"correct": true or false, "feedback": "two sentences max, specific to what they wrote, plain and direct"}`;
-
-  function nextWriteWord() {
-    state.write = { w: shuffle(inScope())[0], status: 'idle', text: '', verdict: '' };
-  }
-
-  function renderWrite() {
-    if (!store.get(STORAGE.apiKey)) {
-      view.innerHTML = `<div class="plate">
-        <span class="mono">Write a sentence</span>
-        <h3>Add an Anthropic API key to use this mode</h3>
-        <p class="gloss">This mode sends your sentence to Claude for feedback. Paste a key from console.anthropic.com. It is stored only in this browser and sent only to Anthropic’s API. Every other tab works without a key.</p>
-        <label class="sr-only" for="keyin">Anthropic API key</label>
-        <input class="search" id="keyin" type="password" placeholder="sk-ant-…" autocomplete="off">
-        <div class="row" style="margin-top:6px"><button class="btn" id="keysave">Save key</button></div>
-      </div>`;
-      $('#keysave').addEventListener('click', () => {
-        const k = $('#keyin').value.trim();
-        if (k) { store.set(STORAGE.apiKey, k); renderWrite(); }
-      });
-      return;
-    }
-    if (!state.write) nextWriteWord();
-    const ws = state.write;
-    const w = ws.w;
-    const score = state.writeScore;
-    view.innerHTML = `
-      <div class="row spread" style="margin-bottom:10px">
-        <span class="mono">Write your own sentence</span>
-        <span class="mono">${score.right} / ${score.total} correct this session</span>
-      </div>
-      <div class="plate">
-        <div class="wword">${esc(w.w)}</div>
-        <p class="wdef">${esc(w.pos)} — ${esc(w.def)}</p>
-        <label class="sr-only" for="wtext">Your sentence</label>
-        <textarea class="warea" id="wtext" placeholder="Write a sentence that uses “${esc(w.w)}” correctly…">${esc(ws.text)}</textarea>
-        <div class="row" style="margin-top:12px">
-          <button class="btn" id="wsubmit" ${ws.status === 'checking' ? 'disabled' : ''}>Check my sentence</button>
-          <button class="btn ghost" data-act="wskip">Another word</button>
-          <button class="btn ghost small push" data-act="wforget">Remove API key</button>
-        </div>
-        <div id="wresult" aria-live="polite">${ws.status === 'checking'
-          ? '<div class="wspin"><i></i>Reading your sentence…</div>' : ws.verdict}</div>
-      </div>`;
-    const ta = $('#wtext');
-    ta.addEventListener('input', (e) => { ws.text = e.target.value; });
-    if (ws.status !== 'done') ta.focus();
-    $('#wsubmit').addEventListener('click', checkSentence);
-  }
-
-  async function checkSentence() {
-    const ws = state.write;
-    const sentence = ws.text.trim();
-    if (!sentence) return;
-    ws.status = 'checking';
-    renderWrite();
-    try {
-      const resp = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'x-api-key': store.get(STORAGE.apiKey),
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({
-          model: CHECKER_MODEL,
-          max_tokens: 400,
-          system: CHECKER_PROMPT,
-          messages: [{
-            role: 'user',
-            content: `Target word: "${ws.w.w}" (${ws.w.pos})\nDefinition: ${ws.w.def}\nStudent's sentence: "${sentence}"`,
-          }],
-        }),
-      });
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      const text = (data.content || []).map((b) => b.text || '').join('').replace(/```(json)?/g, '').trim();
-      const result = JSON.parse(text);
-      state.writeScore.total++;
-      if (result.correct) state.writeScore.right++;
-      setMastery(ws.w.w, result.correct ? 'known' : 'learning');
-      ws.verdict = `<div class="verdict ${result.correct ? 'pass' : 'fail'}">
-          <span class="vlabel">${result.correct ? 'Correct usage' : 'Not quite'}</span>${esc(result.feedback)}</div>
-        <button class="btn" data-act="wnext">Next word</button>`;
-    } catch {
-      ws.verdict = `<div class="verdict fail"><span class="vlabel">Couldn’t check that</span>
-        The checker didn’t respond. Check your connection, and that the API key is valid and has credit, then try again.</div>`;
-    }
-    ws.status = 'done';
-    renderWrite();
-  }
-
   /* ---------- priority ---------- */
   function renderPriority() {
     const P = PRIORITY;
@@ -566,7 +466,6 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
           <dt>Meaning groups</dt><dd>Each batch laid out by its two halves.</dd>
           <dt>Fill in the blank</dt><dd>SAT-style sentence completion with tense-matched options.</dd>
           <dt>Match</dt><dd>Pair words with meanings, drawn from words not yet mastered.</dd>
-          <dt>Write a sentence</dt><dd>Your own sentence, checked by Claude (needs an API key).</dd>
           <dt>Priority</dt><dd>Frequency-ranked words, transitions and function verbs.</dd>
         </dl>
 
@@ -574,7 +473,7 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
         <p class="keys"><kbd>Space</kbd> flip · <kbd>←</kbd> <kbd>→</kbd> move · <kbd>1</kbd> still learning · <kbd>2</kbd> got it</p>
 
         <h2>Your progress</h2>
-        <p>${all.known} known and ${all.learning} learning, stored only in this browser. Nothing is sent anywhere except sentences you choose to check.</p>
+        <p>${all.known} known and ${all.learning} learning, stored only in this browser. Nothing is sent anywhere.</p>
 
         <p class="credits">Definitions and example sentences are original to this project. Frequency data: 3-4-5 Tutoring’s analysis of Bluebook practice tests.
           SAT and Bluebook are trademarks of the College Board, which is not affiliated with this project.
@@ -589,7 +488,6 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
     groups: renderGroups,
     quiz: () => (state.quiz ? renderQuiz() : startQuiz()),
     match: () => (state.match ? renderMatch() : startMatch(6)),
-    write: renderWrite,
     priority: renderPriority,
     about: renderAbout,
   };
@@ -635,9 +533,6 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
     drillmissed: () => startQuiz(shuffle(state.quiz.missed || [])),
     match6: () => startMatch(6),
     match10: () => startMatch(10),
-    wskip: () => { nextWriteWord(); renderWrite(); },
-    wnext: () => { nextWriteWord(); renderWrite(); },
-    wforget: () => { store.set(STORAGE.apiKey, null); state.write = null; renderWrite(); },
   };
 
   document.querySelector('nav').addEventListener('click', (e) => {
@@ -689,6 +584,7 @@ Respond with ONLY a JSON object, no markdown fences, no other text:
 
   /* ---------- boot ---------- */
   loadMastery();
+  store.set('satvocab:apikey', null); // an earlier version could store an API key here; clear it
   applyTheme(store.get(STORAGE.theme) || 'auto');
   $('#wcount').textContent = WORDS.length;
   $('#sub').textContent = `${BATCHES.length} batches · progress saves in this browser`;

@@ -15,6 +15,7 @@
 
 ## Contents
 
+- [Why I built this](#why-i-built-this)
 - [The problem](#the-problem)
 - [How it works](#how-it-works)
 - [Features](#features)
@@ -26,6 +27,8 @@
 - [Roadmap](#roadmap)
 - [How this was built](#how-this-was-built)
 - [Sources and credits](#sources-and-credits)
+
+## Why I built this
 
 ## The problem
 
@@ -60,7 +63,6 @@ Flashcard decks sorted alphabetically or by difficulty don't train that distinct
 | Meaning groups | Each batch laid out by its two halves. |
 | Fill in the blank | SAT-style questions with tense-matched, same-topic distractors. Missed words are marked for review. |
 | Match | Pair words with short meanings, drawn from words not yet mastered. |
-| Write a sentence | Write your own sentence; Claude checks meaning, part of speech and grammar. Optional; needs your own API key. |
 | Priority | Bluebook frequency ranking, transition words by category, and the verbs used in "function of the sentence" questions. |
 
 Also: dark mode, works on phones, works offline, no account, no tracking.
@@ -108,7 +110,7 @@ Runs ten unit tests with Node's built-in test runner, then the deck validator. T
 - Study modes follow the WAI-ARIA tabs pattern, so arrow keys move between them; every mode works from the keyboard.
 - Quiz feedback is announced to screen readers, and the flashcard hides its off-screen face from assistive technology.
 - Animation is reduced when the operating system asks for it.
-- Progress is stored only in the browser's `localStorage`. There is no account, no analytics, and no request to any server unless you turn on the optional sentence checker.
+- Progress is stored only in the browser's `localStorage`. There is no account, no analytics, and no request to any server.
 
 ## Run it locally
 
@@ -133,10 +135,6 @@ Every word is one entry in [`js/data.js`](js/data.js):
 
 `p` is the half of the batch (1 or 2). Wrap the word in `<b>…</b>` in the exact form the sentence uses; the quiz blanks it and inflects the other options to match. Run `npm test` before committing.
 
-## The sentence checker
-
-The optional **Write a sentence** mode calls the Anthropic API from the browser. On first use it asks for a key from [console.anthropic.com](https://console.anthropic.com); the key is stored only in that browser and sent only to Anthropic. A static site has no server to hide a key behind, so never commit one. Every other mode works without a key.
-
 ## Roadmap
 
 - **Spaced repetition.** "Still learning" currently only filters. Storing when each word was last seen would let the app bring words back on a schedule.
@@ -144,8 +142,6 @@ The optional **Write a sentence** mode calls the Anthropic API from the browser.
 - **Measure whether the pairing helps.** The design rests on a hypothesis: that learning words against their opposites improves Words in Context accuracy. A small comparison against an alphabetical deck would test it.
 
 ## How this was built
-
-TODO(Ishaan): In your own words, say what you did yourself (the idea, the study design, choosing and writing the words, testing it with other students, and so on) and where AI tools such as Claude helped. Admissions readers value an honest account, and they may ask you about it.
 
 ## Sources and credits
 
